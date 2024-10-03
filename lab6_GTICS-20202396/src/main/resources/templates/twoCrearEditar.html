@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Formulario Evento</title>
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4" th:text="${evento.id != null} ? 'Editar Evento' : 'Crear Evento'">Formulario Evento</h1>
+    <form th:action="@{/lab6/guardar}" th:object="${evento}" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del Evento</label>
+            <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required minlength="3" maxlength="100">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre inválido.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha del Evento</label>
+            <input type="date" class="form-control" id="fecha" th:field="*{fecha}" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}">Fecha inválida.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="asistentes" class="form-label">Asistentes Esperados</label>
+            <input type="number" class="form-control" id="asistentes" th:field="*{asistentesEsperados}" required min="1">
+            <div class="invalid-feedback" th:errors="*{asistentesEsperados}">Debe ser un número positivo.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+</body>
+</html>
